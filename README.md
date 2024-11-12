@@ -16,13 +16,29 @@ Crowdsourced Notes: Collaboratively annotate neurons for better analysis.
 NeuralView/
 ├── manage.py             # Django management script
 ├── NeuralView/           # Django project settings
-├── models/               # Handles model loading and management
-├── activations/          # Processes token activations and distributions
-├── attention/            # Handles attention visualization and interactions
-├── api/                  # Central API for integrating model, activation, and attention features
-├── env/                  # Virtual environment (not included in Git)
-├── requirements.txt      # Project dependencies
-└── README.md             # Project documentation
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── models/               # Handles ML models and model loading
+│   ├── views.py          # Endpoint to load models
+│   ├── urls.py
+│   └── utils.py          # Helper functions for model loading
+├── activations/          # Processes neuron activations and distributions
+│   ├── views.py          # Token coloring, activation distribution
+│   ├── urls.py
+│   └── utils.py          # Helper functions for activations
+├── attention/            # Handles attention visualization
+│   ├── views.py          # Attention visualization endpoints
+│   ├── urls.py
+│   └── utils.py          # Helper functions for attention
+├── api/                  # Central API to route requests
+│   └── urls.py
+├── frontend/             # Simple HTML for frontend
+│   └── templates/
+│       └── index.html
+└── requirements.txt      # Project dependencies
+
 
 ## Setup Instructions
 
