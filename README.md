@@ -4,47 +4,46 @@ NeuralView is a Django-powered visualization tool designed for understanding and
 
 ## Features
 
-Model Management: Load and manage Sparse Autoencoders (SAEs) and Transformer models.
-Token Activation Visualization: Color text tokens based on neuron activations.
-Activation Distribution: Analyze activation distributions and quantiles.
-Attention Visualization: Explore attention weights through color-coded token backgrounds.
-Interactive Text Editing: View live activations as text is modified (under development).
+Model Management: Load and manage Sparse Autoencoders (SAEs) and Transformer models.  
+Token Activation Visualization: Color text tokens based on neuron activations.  
+Activation Distribution: Analyze activation distributions and quantiles.  
+Attention Visualization: Explore attention weights through color-coded token backgrounds.  
+Interactive Text Editing: View live activations as text is modified (under development).  
 Crowdsourced Notes: Collaboratively annotate neurons for better analysis.
 
 ## Project Structure
 
-NeuralView/
-├── manage.py             # Django management script
-├── NeuralView/           # Django project settings
-│   ├── __init__.py
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
-├── models/               # Handles ML models and model loading
-│   ├── views.py          # Endpoint to load models
-│   ├── urls.py
-│   └── utils.py          # Helper functions for model loading
-├── activations/          # Processes neuron activations and distributions
-│   ├── views.py          # Token coloring, activation distribution
-│   ├── urls.py
-│   └── utils.py          # Helper functions for activations
-├── attention/            # Handles attention visualization
-│   ├── views.py          # Attention visualization endpoints
-│   ├── urls.py
-│   └── utils.py          # Helper functions for attention
-├── api/                  # Central API to route requests
-│   └── urls.py
-├── frontend/             # Simple HTML for frontend
-│   └── templates/
-│       └── index.html
+NeuralView/  
+├── manage.py             # Django management script  
+├── NeuralView/           # Django project settings  
+│   ├── __init__.py  
+│   ├── settings.py  
+│   ├── urls.py  
+│   └── wsgi.py  
+├── models/               # Handles ML models and model loading  
+│   ├── views.py          # Endpoint to load models  
+│   ├── urls.py  
+│   └── utils.py          # Helper functions for model loading  
+├── activations/          # Processes neuron activations and distributions  
+│   ├── views.py          # Token coloring, activation distribution  
+│   ├── urls.py  
+│   └── utils.py          # Helper functions for activations  
+├── attention/            # Handles attention visualization  
+│   ├── views.py          # Attention visualization endpoints  
+│   ├── urls.py  
+│   └── utils.py          # Helper functions for attention  
+├── api/                  # Central API to route requests  
+│   └── urls.py  
+├── frontend/             # Simple HTML for frontend  
+│   └── templates/  
+│       └── index.html  
 └── requirements.txt      # Project dependencies
-
 
 ## Setup Instructions
 
 **Prerequisites:**
 
-Python 3.x
+Python 3.x  
 Virtual Environment (recommended): To isolate dependencies.
 
 ### Clone the Repository
@@ -83,25 +82,24 @@ Explore Attention Mechanisms: Hover over tokens to view attention weights or vis
 
 Quantile-based Text Exploration: Select texts based on activation levels across different quantiles.
 
-API Endpoints
-Here are the key endpoints provided by NeuralView:
+API Endpoints  
+Here are the key endpoints provided by NeuralView:  
+- Model Management  
+/api/load_models/ (POST): Initializes and loads the Sparse Autoencoder and Transformer models.  
+- Activation Processing  
+/api/token_activation_coloring/ (GET): Fetches token activations and colors based on specified inputs.  
+/api/activation_distribution/ (GET): Provides distribution statistics for activations.  
+/api/quantile_texts/ (GET): Retrieves texts corresponding to specific activation quantiles.  
+- Attention Processing  
+/api/attention_coloring/ (GET): Returns token coloring based on attention weights.  
+/api/attention_hover/ (GET): Provides hover effects for selected attention heads.  
 
-Model Management
-/api/load_models/ (POST): Initializes and loads the Sparse Autoencoder and Transformer models.
-Activation Processing
-/api/token_activation_coloring/ (GET): Fetches token activations and colors based on specified inputs.
-/api/activation_distribution/ (GET): Provides distribution statistics for activations.
-/api/quantile_texts/ (GET): Retrieves texts corresponding to specific activation quantiles.
-Attention Processing
-/api/attention_coloring/ (GET): Returns token coloring based on attention weights.
-/api/attention_hover/ (GET): Provides hover effects for selected attention heads.
-For details, please refer to the in-app API documentation or use tools like Postman to test each endpoint.
+For details, please refer to the in-app API documentation or use tools like Postman to test each endpoint.  
 
-Contributing
-We welcome contributions to improve NeuralView! Here’s how you can help:
-
-Fork the Repository: Create your own fork of NeuralView.
-Create a Feature Branch: Name your branch descriptively (e.g., feature/activation-distribution).
-Commit Your Changes: Write clear, concise commit messages.
-Push to GitHub: Push your feature branch to GitHub.
+Contributing  
+We welcome contributions to improve NeuralView! Here’s how you can help:  
+Fork the Repository: Create your own fork of NeuralView.  
+Create a Feature Branch: Name your branch descriptively (e.g., feature/activation-distribution).  
+Commit Your Changes: Write clear, concise commit messages.  
+Push to GitHub: Push your feature branch to GitHub.  
 Open a Pull Request: Describe your feature and any testing you performed.
