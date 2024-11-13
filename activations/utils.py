@@ -1,4 +1,5 @@
-def get_token_colors(tokens, model):
+# def get_token_colors(tokens, model):
+def get_token_colors(tokens):
     # Mock activation levels based on token length or random values
     activations = [0.1, 0.5, 0.9]  # Placeholder, replace with real model-based activation
     colors = ["#ADD8E6", "#4682B4", "#00008B"]  # Light to dark blue
