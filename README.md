@@ -85,10 +85,10 @@ Quantile-based Text Exploration: Select texts based on activation levels across 
 API Endpoints  
 Here are the key endpoints provided by NeuralView:  
 - Model Management  
-/api/load_models/ (POST): Initializes and loads the Sparse Autoencoder and Transformer models.  
+/api/models/load/ (GET): Initializes and loads the Sparse Autoencoder and Transformer models.  
 - Activation Processing  
-/api/token_activation_coloring/ (GET): Fetches token activations and colors based on specified inputs.  
-/api/activation_distribution/ (GET): Provides distribution statistics for activations.  
+/api/activations/token_coloring/ (GET): Fetches token activations and colors based on specified inputs.  
+/api/activations/distribution/ (GET): Provides distribution statistics for activations.  
 /api/quantile_texts/ (GET): Retrieves texts corresponding to specific activation quantiles.  
 - Attention Processing  
 /api/attention_coloring/ (GET): Returns token coloring based on attention weights.  
