@@ -58,7 +58,7 @@ ROOT_URLCONF = 'NeuralView.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'frontend/templates'],  # Add this line to specify the template folder
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

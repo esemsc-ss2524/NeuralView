@@ -3,11 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <title>Neural Network Visualization</title>
+    <style>
+        #colored-tokens {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .token {
+            padding: 2px;
+            margin-right: 2px;
+            display: inline-block;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
     <h1>Neural Network Visualization</h1>
-    <div id="tokens">
-        <!-- Tokens and coloring will be displayed here -->
+    <div>
+        <input type="text" id="textInput" placeholder="Enter text here" size="50">
+        <button onclick="fetchTokenColors()">Color Tokens</button>
     </div>
+    <div id="colored-tokens">
+        <!-- Colored tokens will be displayed here -->
+    </div>
+
+    <script>
+        async function fetchTokenColors() {
+            const textInput = document.getElementById("textInput").value;
+            const url = `/api/activations/token_coloring/?text=${encodeURIComponent(textInput)}`;
+            
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch token colors");
+                }
+                const data = await response.json();
+                console.log(data);
+                // fprint(data);
+                displayTokenColors(data);
+            } catch (error) {
+                console.error(error);
+                document.getElementById("colored-tokens").innerText = "Error fetching token colors.";
+            }
+        }
+
+        function displayTokenColors(tokenColors) {
+        const container = document.getElementById("colored-tokens");
+        container.innerHTML = "";  // Clear previous tokens
+
+        // Iterate over the tokens and color them based on the colors object
+        tokenColors.tokens.forEach((token, index) => {
+            // Get the color for this token
+            const color = tokenColors.colors[token];
+
+            // Create a span for the token
+            const span = document.createElement("span");
+            span.textContent = token;
+            span.className = "token";
+            span.style.backgroundColor = color;  // Set the background color based on the token's color
+            span.style.padding = "2px 4px"; // Optional: Add some padding for better appearance
+            span.style.margin = "0 2px"; // Optional: Add some margin between tokens
+
+            // Append the span to the container
+            container.appendChild(span);
+        });
+    }
+
+    </script>
 </body>
 </html>
