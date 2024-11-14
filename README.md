@@ -12,7 +12,7 @@ Interactive Text Editing: View live activations as text is modified (under devel
 Crowdsourced Notes: Collaboratively annotate neurons for better analysis.
 
 ## Project Structure
-
+```
 NeuralView/  
 ├── manage.py             # Django management script  
 ├── NeuralView/           # Django project settings  
@@ -38,7 +38,7 @@ NeuralView/
 │   └── templates/  
 │       └── index.html  
 └── requirements.txt      # Project dependencies
-
+```
 ## Setup Instructions
 
 **Prerequisites:**
