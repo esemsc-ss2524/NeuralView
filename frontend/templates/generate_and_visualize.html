@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Neural Network Visualization</title>
+    <style>
+        #attention-results {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .context {
+            margin-bottom: 20px;
+        }
+        .token {
+            padding: 2px;
+            margin-right: 2px;
+            display: inline-block;
+            border-radius: 4px;
+            font-weight: bold;
+            background-color: white;
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <h1>Neural Network Visualization</h1>
+    <div>
+        <input type="text" id="textInput" placeholder="Enter initial text here" size="50">
+        <input type="number" id="numTokens" placeholder="Number of tokens" size="10" min="1">
+        <button onclick="fetchGeneratedTokens()">Generate Tokens</button>
+    </div>
+    <p>Hover over the words to view the attention levels used for generating them.</p>
+    <div id="attention-results">
+        <!-- Attention results and generated tokens will be displayed here -->
+    </div>
+
+    <script>
+        let lastStep = null; // To store the last generated step
+
+        async function fetchGeneratedTokens() {
+            const textInput = document.getElementById("textInput").value;
+            const numTokens = document.getElementById("numTokens").value;
+            const url = `/api/activations/generate_with_attention/?text=${encodeURIComponent(textInput)}&num_tokens=${numTokens}`;
+            
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch generated tokens with attention levels");
+                }
+                const data = await response.json();
+                console.log(data);
+                lastStep = data.results[data.results.length - 1]; // Store the last step
+                displayGeneratedTokens(data.results);
+            } catch (error) {
+                console.error(error);
+                document.getElementById("attention-results").innerText = "Error fetching generated tokens.";
+            }
+        }
+
+        function displayGeneratedTokens(results) {
+            const container = document.getElementById("attention-results");
+            container.innerHTML = "";  // Clear previous results
+
+            const lastGeneratedStep = results[results.length - 1];
+
+            // Add the context tokens
+            const contextDiv = document.createElement("div");
+            lastGeneratedStep.context.forEach((token, index) => {
+                const span = document.createElement("span");
+                span.textContent = token;
+                span.className = "token";
+
+                // Add hover event to display attention levels for the specific word
+                span.addEventListener("mouseenter", () => {
+                    highlightAttentionLevels(index, results);
+                });
+
+                span.addEventListener("mouseleave", () => {
+                    resetHighlighting();
+                });
+
+                contextDiv.appendChild(span);
+            });
+
+            // Append the context to the container
+            container.appendChild(contextDiv);
+        }
+
+        function highlightAttentionLevels(index, results) {
+            const tokens = document.querySelectorAll(".token");
+
+            // Get the attention levels for the specific word being hovered over
+            const attentionStep = results[Math.min(index, results.length - 1)];
+            const attentionLevels = attentionStep ? attentionStep.attention_levels : null;
+
+            if (attentionLevels) {
+                tokens.forEach((token, i) => {
+                    if (i < attentionStep.context.length) {
+                        const attentionLevel = attentionLevels[attentionStep.context[i]];
+                        const colorValue = Math.floor((1 - attentionLevel) * 255);
+                        token.style.backgroundColor = `rgb(${colorValue}, ${colorValue}, 255)`;
+                    }
+                });
+            }
+        }
+
+        function resetHighlighting() {
+            const tokens = document.querySelectorAll(".token");
+            tokens.forEach(token => {
+                token.style.backgroundColor = "white";
+            });
+        }
+    </script>
+</body>
+</html>
