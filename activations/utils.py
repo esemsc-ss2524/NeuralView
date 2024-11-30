@@ -1,13 +1,11 @@
-# def get_token_colors(tokens, model):
-
 import torch
 import numpy as np
-from transformers import GPT2Model, GPT2Tokenizer
 from matplotlib import colors as mcolors
+from models.utils import load_gpt2_model, load_gpt2_lm_head_model
 
-# Load GPT-2 model and tokenizer
-model = GPT2Model.from_pretrained("gpt2")
-tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+# Load models
+model, tokenizer = load_gpt2_model()
+headmodel, headtokenizer = load_gpt2_lm_head_model()
 
 def get_color_from_activation(activation):
     """
@@ -59,14 +57,6 @@ def get_token_colors(tokens):
 def get_activation_distribution():
     # Mocked activation distribution
     return {"0%": 0.1, "25%": 0.3, "50%": 0.5, "75%": 0.8, "100%": 1.0}
-
-
-##########################
-from transformers import GPT2LMHeadModel, GPT2Tokenizer
-
-# Load GPT-2 model and tokenizer
-headmodel = GPT2LMHeadModel.from_pretrained("gpt2")
-headtokenizer = GPT2Tokenizer.from_pretrained("gpt2")
 
 def generate_tokens_with_attention(initial_phrase, num_tokens):
     """
